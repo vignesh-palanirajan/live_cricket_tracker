@@ -1,0 +1,192 @@
+    <html>
+
+    <head>
+        <meta charset="utf-8">
+
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Recent Matches</title>
+        <!-- Include jQuery -->
+        <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" />
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,400i,500">
+
+    <style>
+        body {
+            font-family: 'Roboto', sans-serif;
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            background-color: rgba(74, 110, 148, 0.699);
+        }
+
+        /* Sidebar Styles */
+        .sidebar {
+            position: fixed;
+            width: 250px;
+            height: 100%;
+            background: #042331;
+            transition: all 0.5s ease;
+            overflow: auto;
+        }
+
+        .sidebar header {
+            font-size: 22px;
+            color: white;
+            line-height: 70px;
+            text-align: center;
+            background: #063146;
+            user-select: none;
+        }
+
+        .sidebar ul {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+
+        .sidebar li {
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .sidebar a {
+            display: block;
+            height: 50px;
+            /* Adjusted height */
+            line-height: 50px;
+            /* Adjusted line-height */
+            font-size: 18px;
+            color: white;
+            padding-left: 20px;
+            box-sizing: border-box;
+            border-bottom: 1px solid black;
+            border-top: 1px solid rgba(255, 255, 255, .1);
+            transition: .4s;
+        }
+
+        .sidebar a:hover {
+            background-color: #063146;
+            padding-left: 30px;
+            /* Adjusted padding for hover effect */
+        }
+
+        /* Hamburger Icon Styles */
+        #check {
+            display: none;
+        }
+
+        label #btn {
+            color: white;
+            font-size: 30px;
+            cursor: pointer;
+            margin: 10px;
+        }
+
+        /* Responsive Styles */
+        @media (max-width: 768px) {
+            .sidebar {
+                width: 100%;
+                left: 0;
+            }
+
+            #check:checked~.sidebar {
+                left: 0;
+            }
+        }
+
+        #result-container {
+            margin-left: 250px;
+            padding: 20px;
+        }
+
+        table {
+            border: 2px solid black;
+        }
+
+        td,
+        th {
+            border: 2px solid black;
+        }
+    </style>
+
+
+    </head>
+
+    <body>
+        <div class="sidebar">
+            <header>CRIC 24/7</header>
+            <ul>
+                <li><a href="home"><i class="fas fa-qrcode"></i>Current Matches</a></li>
+                <li><a href="recent"><i class="fas fa-link"></i>Recent matches</a></li>
+                <li><a href="upcoming"><i class="fas fa-stream"></i>Upcoming Matches</a></li>
+                <li><a href="teamstandings"><i class="fas fa-calendar-week"></i>Team Standings</a></li>
+                <li><a href="booktickets"><i class="fas fa-calendar-week"></i>Book Tickets</a></li>
+            </ul>
+        </div>
+        <div id="result-container">
+            <!-- The response will be displayed here -->
+        </div>
+
+        <script>
+            $(document).ready(function () {
+                const resultContainer = $('#result-container');
+
+                const settings = {
+                    async: true,
+                    crossDomain: true,
+                    url: 'https://cricbuzz-cricket.p.rapidapi.com/matches/v1/recent',
+                    method: 'GET',
+                    headers: {
+                        'X-RapidAPI-Key': '8fec1e9f0cmshc845ede058e1f8ap1763d8jsn84290bd01531', // Replace with your actual RapidAPI key
+                        'X-RapidAPI-Host': 'cricbuzz-cricket.p.rapidapi.com'
+                    }
+                };
+
+                $.ajax(settings)
+                    .done(function (response) {
+                        // Extract matchType from the response
+                        const m1t1 = JSON.stringify(response.typeMatches[0].seriesMatches[0].seriesAdWrapper.matches[0].matchInfo.team1.teamName, null, 2);
+                        const m1t2 = JSON.stringify(response.typeMatches[0].seriesMatches[0].seriesAdWrapper.matches[0].matchInfo.team2.teamName, null, 2);
+                        const m1s = JSON.stringify(response.typeMatches[0].seriesMatches[0].seriesAdWrapper.matches[0].matchInfo.status, null, 2);
+                        const m2t1 = JSON.stringify(response.typeMatches[0].seriesMatches[0].seriesAdWrapper.matches[1].matchInfo.team1.teamName, null, 2);
+                        const m2t2 = JSON.stringify(response.typeMatches[0].seriesMatches[0].seriesAdWrapper.matches[1].matchInfo.team2.teamName, null, 2);
+                        const m2s = JSON.stringify(response.typeMatches[0].seriesMatches[0].seriesAdWrapper.matches[1].matchInfo.status, null, 2);
+                        const m3t1 = JSON.stringify(response.typeMatches[0].seriesMatches[0].seriesAdWrapper.matches[2].matchInfo.team1.teamName, null, 2);
+                        const m3t2 = JSON.stringify(response.typeMatches[0].seriesMatches[0].seriesAdWrapper.matches[2].matchInfo.team2.teamName, null, 2);
+                        const m3s = JSON.stringify(response.typeMatches[0].seriesMatches[0].seriesAdWrapper.matches[2].matchInfo.status, null, 2);
+                        // Display the response on the document using variables
+                        console.log(m1s)
+                        resultContainer.html(
+                            '<table>' +
+                            '<thead>' +
+                            '<tr><th>Match</th><th>Result</th></tr>' +
+                            '<tr>' +
+                            '</thead>' +
+                            '<td>' +
+
+                            JSON.parse(m1t1||'{}') + " vs " + JSON.parse(m1t2||'{}') + "<td>" + JSON.parse(m1s||'{}') + "</td>" +
+                            '</td>' +
+
+                            '<tr><td>' +
+
+                            JSON.parse(m2t1||'{}') + " vs " + JSON.parse(m2t2||'{}') + "<td>" + JSON.parse(m2s||'{}') + "</td>" +
+                            '</td></tr>' +
+                            '<tr><td>' +
+
+                            JSON.parse(m3t1||'{}') + " vs " + JSON.parse(m3t2||'{}') + "<td>" + JSON.parse(m3s||'{}') + "</td>" +
+                            '</td></tr>' +
+                            '</table>'
+                        );
+
+
+                    })
+                    .fail(function (xhr, status, error) {
+                        // Display error message on the document
+                        resultContainer.html('<p>Error: ' + status + ', ' + error + '</p>');
+                        console.log(xhr.responseText);
+                    });
+            });
+        </script>
+    </body>
+
+    </html>

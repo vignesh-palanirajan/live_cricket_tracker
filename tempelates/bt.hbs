@@ -1,0 +1,243 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+
+<head>
+    <meta charset="utf-8">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" />
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,400i,500">
+   <style>
+	body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: white;
+}
+
+.fields {
+    text-align: center;
+    margin: 50px auto;
+    border: 2px solid black; 
+    width:  80%; 
+}
+
+.bill {
+    text-align: left;
+    margin: 20px auto;
+    border: 1px dotted black; 
+    width: 50%;
+    padding: 2%;
+}
+
+form {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+label {
+    margin-top: 10px;
+    font-size: large;
+}
+
+option {
+    margin-top: 10px;
+    font-size: large;
+}
+
+select {
+    margin-top: 10px;
+    font-size: large;
+}
+
+input {
+    padding: 8px;
+    margin-bottom: 15px;
+}
+
+button {
+    padding: 10px;
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+button:hover {
+    background-color: #45a049;
+}
+
+</style>
+</head>
+
+<body>
+ 
+
+    <!-- Personal Details Form -->
+    <div class="fields">
+        <h2>Please fill in your personal details:</h2>
+        <form action="">
+            <label for="name">Full Name:</label>
+            <input type="text" id="name" name="name" pattern="[A-Za-z ]+" required>
+
+            <label for="phone">Mobile Number:</label>
+            <input type="tel" id="phone" name="phone" pattern="[0-9]{10}" required>
+
+            <label for="email">Valid Email:</label>
+            <input type="email" id="email" name="email" required>
+        </form>
+    </div>
+
+    <!-- Additional Information Form -->
+    <div class="fields">
+        <h2>Additional information:</h2>
+        <form action="">
+            <label>Select the match that you would like to watch:</label>
+            <select name="match" id="match">
+                <option value="Ind vs Aus">India vs Australia MA Chidambaram Stadium, Chennai</option>
+                <option value="Ind vs Afg">India vs Afghanistan Arun Jaitley Stadium, Delhi</option>
+                <option value="Ind vs Pak">India vs Pakistan Narendra Modi Stadium, Ahmedabad</option>
+                <option value="Ind vs Ban">India vs Bangladesh Maharashtra Cricket Association Stadium, Pune</option>
+                <option value="Ind vs NZ">India vs New Zealand Himachal Pradesh Cricket Association Stadium, Dharamsala</option>
+                <option value="Ind vs Eng">India vs England Bharat Ratna Shri Atal Bihari Vajpayee Ekana Cricket Stadium, Lucknow</option>
+                <option value="Ind vs SL">India vs Sri Lanka Wankhede Stadium, Mumbai</option>
+                <option value="Ind vs RSA">India vs South Africa Eden Gardens, Kolkata</option>
+                <option value="Ind vs Ned">India vs Netherlands M.Chinnaswamy Stadium, Bengaluru</option>
+            </select>
+            <br><br>
+
+            <label for="num_s">Number of seats:</label>
+            <input type="number" id="num_s" name="num_s" min="1" max="10" value="1" required>
+            <label>(Max tickets limited to 10 per booking)</label>
+
+            <label for="seat_loc">Select your stand:</label>
+            <select name="seat_loc" id="seat_loc">
+                <option value="A">A</option>
+                <option value="B">B</option>
+                <option value="C">C</option>
+                <option value="D">D</option>
+		<option value="E">E</option>
+		<option value="F">F</option>
+            </select>
+
+            <label for="seat_dec">Select your deck:</label>
+            <select name="seat_dec" id="seat_dec">
+                <option value="low">Lower</option>
+                <option value="upp">Upper</option>
+            </select>
+            <img src="seatselection.png" alt="std_layout">
+
+            <label>Price chart:</label>
+            <table border="1">
+                <tr>
+                    <th rowspan="2">Stand</th>
+                    <th colspan="2">Price</th>
+                </tr>
+                <tr>
+                    <td>Lower</td>
+                    <td>Upper</td>
+                </tr>
+                <tr>
+                    <td>A</td>
+                    <td>₹ 500</td>
+                    <td>₹ 1000</td>
+                </tr>
+                <tr>
+                    <td>B</td>
+                    <td>₹ 500</td>
+                    <td>₹ 1000</td>
+                </tr>
+                <tr>
+                    <td>C</td>
+                    <td>₹ 500</td>
+                    <td>₹ 1000</td>
+                </tr>
+                <tr>
+                    <td>D</td>
+                    <td>₹ 500</td>
+                    <td>₹ 1000</td>
+                </tr>
+		     <tr>
+                    <td>E</td>
+                    <td>₹ 500</td>
+                    <td>₹ 1000</td>
+                </tr>
+	             <tr>
+                    <td>F</td>
+                    <td>₹ 500</td>
+                    <td>₹ 1000</td>
+                </tr>
+            </table>
+            <br>
+        </form>
+    </div>
+
+     <!-- Billing Information Form -->
+    <div class="fields">
+        <form action="" onsubmit="genBill(); return false;">
+            <label><h2>Billing Information:</h2></label>
+            <div class="bill" id="billingInfo">
+            </div>
+            <button type="submit" id="submit" onclick="genBill()">Generate bill</button>
+            <label>Please take a screenshot of the generated bill.</label>
+        </form>
+    </div>
+
+    <!-- Important Message and Checkbox Form -->
+    <div class="fields">
+        <form action="">
+            <p><b>Important:</b><br>Please read the <a href="tnc">terms and conditions</a> here.</p>
+
+            <label><input type="checkbox" id="t&c" onchange="enableButton()"> I agree to the terms and conditions</label>
+            <button type="button" id="confirmBookingButton" onclick="confirmBooking()">Confirm Booking</button>
+        </form>
+    </div>
+
+    <script>
+        function enableButton() {
+            var checkbox = document.getElementById("t&c");
+            var submitButton = document.getElementById("submit");
+
+            submitButton.disabled = !checkbox.checked;
+        }
+
+        function genBill() {
+            var name = document.getElementById("name").value;
+            var phone = document.getElementById("phone").value;
+            var email = document.getElementById("email").value;
+            var match_det = document.getElementById("match").value;
+            var seat_det = document.getElementById("seat_loc").value + " " + document.getElementById("seat_dec").value;
+            var s_num = document.getElementById("num_s").value;
+            var dec = document.getElementById("seat_dec").value;
+
+            function calc_price(dec) {
+                switch (dec) {
+                    case 'low':
+                        return 500;
+                        break;
+
+                    case 'upp':
+                        return 1000;
+                        break;
+                }
+            }
+
+            var billingInfo = document.getElementById("billingInfo");
+            billingInfo.innerHTML = "<p><b>Invoice:</b></p>" +
+                "<p>Name: " + name + "</p>" +
+                "<p>Mobile Number: " + phone + "</p>" +
+                "<p>Email: " + email + "</p>" +
+                "<p>Match: " + match_det + "</p>" +
+                "<p>Seat Location: " + seat_det + "</p>" +
+                "<p>Number of Seats: " + s_num + "</p>" +
+                "<p>Total cost: " + s_num * calc_price(dec) +
+                "<p>Unique billing code: " + name[0] + name[1] + name[2] + phone[0] + phone[1] + dec + s_num * calc_price(dec) + seat_det[0];
+        }
+
+        function confirmBooking() {
+            alert("Booking confirmed! Please take a screenshot of the generated bill.");
+	    window.location.href = "booktickets";
+        }
+    </script>
+
+</html>

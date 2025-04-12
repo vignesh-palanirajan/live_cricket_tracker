@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+
+<head>
+    <meta charset="utf-8">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" />
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,400i,500">
+    <style>
+        body {
+            font-family: 'Roboto', sans-serif;
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            background-color: rgba(74, 110, 148, 0.699);
+        }
+
+        /* Sidebar Styles */
+        .sidebar {
+            position: fixed;
+            width: 250px;
+            height: 100%;
+            background: #042331;
+            transition: all 0.5s ease;
+            overflow: auto;
+        }
+
+        .sidebar header {
+            font-size: 22px;
+            color: white;
+            line-height: 70px;
+            text-align: center;
+            background: #063146;
+            user-select: none;
+        }
+
+        .sidebar ul {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+
+        .sidebar li {
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .sidebar a {
+            display: block;
+            height: 50px;
+            /* Adjusted height */
+            line-height: 50px;
+            /* Adjusted line-height */
+            font-size: 18px;
+            color: white;
+            padding-left: 20px;
+            box-sizing: border-box;
+            border-bottom: 1px solid black;
+            border-top: 1px solid rgba(255, 255, 255, .1);
+            transition: .4s;
+        }
+
+        .sidebar a:hover {
+            background-color: #063146;
+            padding-left: 30px;
+            /* Adjusted padding for hover effect */
+        }
+
+        /* Hamburger Icon Styles */
+        #check {
+            display: none;
+        }
+
+        label #btn {
+            color: white;
+            font-size: 30px;
+            cursor: pointer;
+            margin: 10px;
+        }
+
+        /* Responsive Styles */
+        @media (max-width: 768px) {
+            .sidebar {
+                width: 100%;
+                left: 0;
+            }
+
+            #check:checked~.sidebar {
+                left: 0;
+            }
+        }
+
+        #result-container {
+            margin-left: 250px;
+            padding: 20px;
+        }
+
+        table {
+            border: 2px solid black;
+        }
+
+        td,
+        th {
+            border: 2px solid black;
+        }
+    </style>
+
+<body>
+    <div class="sidebar">
+        <header>CRIC 24/7</header>
+        <ul>
+            <li><a href="home"><i class="fas fa-qrcode"></i>Current matches</a></li>
+            <li><a href="recent"><i class="fas fa-link"></i>Recent matches</a></li>
+            <li><a href="upcoming"><i class="fas fa-stream"></i>Upcoming Matches</a></li>
+            <li><a href="teamstandings"><i class="fas fa-calendar-week"></i>Team Standings</a></li>
+            <li><a href="booktickets" onclick="showBookingProcess()"><i class="fas fa-calendar-week"></i>Book tickets</a></li>
+        </ul>
+    </div>
+
+  <section style="text-align: center;">
+    <h1>Welcome to the Booking Tickets Page</h1>
+    <p>This is the place to book tickets for exciting cricket matches!</p>
+    <p>Explore our upcoming matches and book your seats now.</p><br />
+    <button onclick="window.location.href='bt'">Book Now</button>
+</section>
+</body>
+
+</html>
